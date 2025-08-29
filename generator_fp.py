@@ -49,7 +49,7 @@ class opt(Enum):
 class fp_var:
     def __init__(self):
         self.name=""
-        self.length=0  #长度
+        self.length=0  #length
         self.isBool=False 
 
 oneVarOp=[6,7,10,16,23,24,25,26,27,28,29]
@@ -108,10 +108,10 @@ class gconstrains:
         self.inlist.append(var_ins)
         return var_ins
     
-    # def gtransVar(self,var1,var2):###调用转换接口  other->fp(fp->fp   16<->32)  不直接使用
+    # def gtransVar(self,var1,var2):###  other->fp(fp->fp   16<->32)  no use direct
     #     transexp=g_transform.tramsform()
     #     tnode=transexp.tNode()
-    #     ##舍入模式
+    #     ##roundmode
     #     rand_round=self.random_roundmode()
     #     roundingmode=opt(rand_round).name
     #     tnode=transexp.transfom(var1,var2,self.index,32,32,roundingmode)
@@ -160,7 +160,7 @@ class gconstrains:
     
     
     def addnode(self,rand,isRandom,vars_copy):###
-        ##node信息
+        ##node info
         node=self.consop()
         #rand=self.random_op()
         node.name=opt(rand).name
@@ -376,3 +376,4 @@ class gmodel:
         f.write("(get-model)\n")
         f.write("(exit)\n")
         f.close()
+
