@@ -332,20 +332,6 @@ class gmodel:
     
                                   
 if __name__=="__main__":
-    # num=0
-    # i=0
-    # while(num<50):
-    #     r=gmodel()
-    #     r.modeltree(40,30)
-    #     filename="SMT-bv1/seed_"+str(i)+".smt2"
-    #     i=i+1
-    #     r.tosmt(filename)
-    #     filetime = z3_time.gtime(filename)
-    #     print(filetime)
-    #     if(filetime>60):
-    #         mun=num+1
-    #         f=open("SMT-bv1/hard_time.txt","a")
-    #         f.write(filename+"\t"+str(filetime)+"\n")
 
     for i in range(100):
          filename="SMT-test/seed_"+str(i)+".smt2"
@@ -355,16 +341,6 @@ if __name__=="__main__":
          filetime=z3_time.gtime(filename)
          print(filetime)
 
-    # index=0
-    # for i in range(4,1000):
-    #     filename="SMT-generator/seeds_bv/seed_"+str(i)+".smt2"
-    #     r=gmodel()
-    #     r.modeltree(30,30)
-    #     r.tosmt(filename)
-    #     filetime=z3_time.gtime(filename)
-    #     print(filetime)
-    #     f=open("SMT-generator/bv_time.txt","a")
-    #     f.write(filename+"\t"+str(filetime)+"\n")
-
     
+
     
