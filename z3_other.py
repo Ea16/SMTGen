@@ -39,7 +39,7 @@ def timeout_check_smt_file(filename):
     with Pool(processes=1) as pool:
         try:
             res = pool.apply_async(solve_smt2_file, (filename,))
-            return res.get(timeout=60)  # 1分钟超时
+            return res.get(timeout=60)  # timeout
         except:
             return None
 
@@ -76,4 +76,5 @@ def gtime(filename):
     #     print(file_time)
     #     f=open("real_time_yices","a")
     #     f.write(file+"\t"+str(file_time)+"\n")
+
     #     f.close()
