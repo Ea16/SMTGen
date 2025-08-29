@@ -35,7 +35,7 @@ boolOutOp=[6,7,4,5]
 
 class gconstrains:
     def __init__(self):
-      self.op=[]#操作码
+      self.op=[]#opcode
       self.index=0
       self.outlist=[]
       self.inlist=[]
@@ -119,7 +119,7 @@ class gconstrains:
         return input
     
     def addnode(self,rand,isRandom,reals_copy):
-        #node信息
+        #node info
         node=self.consop()
         node.name=self.getopt(rand)
         node.name_num=rand
@@ -147,7 +147,7 @@ class gconstrains:
             reals_copy=reals[:]
             self.addnode(rand,True,reals_copy)
 
-    #转化为z3文件 
+    #z3 file
     def tosmt(self,filename):
         f=open(filename,"w")
         f.write("(set-logic QF_NRA)\n")
@@ -298,3 +298,4 @@ class gmodel:
         f.write("(get-model)\n")
         f.write("(exit)\n")
         f.close()
+
