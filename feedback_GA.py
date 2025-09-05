@@ -156,8 +156,8 @@ class GA:
                 s.append(rand)
                 targetfiles.remove(rand)
                 continue
-            # 轮盘赌选择
-            pick = random.uniform(0, t_score)  # 在 [0, 总得分] 之间选择一个随机数
+            # roulette wheel
+            pick = random.uniform(0, t_score)  # choose between [0, all] 
             current = 0
         
             for file in targetfiles:
@@ -165,7 +165,7 @@ class GA:
                 if current >= pick:
                     s.append(file)
                     targetfiles.remove(file)
-                    t_score-=file.score ##删掉的文件，删掉分数
+                    t_score-=file.score ##delete score
                     break
         return s
     
@@ -230,7 +230,7 @@ class GA:
         store_vars=[]
         vars=r.cons.inlist[:]+r.cons.outlist[:]
         for node in r.cons.op:
-            iscompa=True#公式是否正确
+            iscompa=True# check formula
             vars_item=set()
             inp_num=len(node.input)
             for i in range(inp_num):
@@ -262,7 +262,7 @@ class GA:
             store_vars.append(vars_item)
         r.model=self.generator.gmodel()
         r.model.cons=r.cons
-        ###重新生成等式
+        ###regeneration 
         cons=r.cons.outlist[:]
         for i in range(len(cons)):
             r.model.gznode(cons)
@@ -277,7 +277,7 @@ class GA:
         r.readf(filename)
         store_vars=[]
         vars=r.cons.inlist[:]+r.cons.outlist[:]
-        node=random.choice(r.cons.op[1:])##不能选到bv_1,还会随机生成input
+        node=random.choice(r.cons.op[1:])
         r.cons.op.remove(node)
         r.cons.outlist.remove(node.output)
         inlist=r.cons.inlist[:]
@@ -294,7 +294,7 @@ class GA:
         r.cons.index=node_index
         while True:
             rand=Pre_GA(100,15).getop(r.cons,node.output.isBool)
-            r.cons.addnode(rand,True,vars_copy)##此时生成input时不能加入多样性，会出现index错误
+            r.cons.addnode(rand,True,vars_copy)##index error
             node=r.cons.op[-1]
             vars_item=set()
             for i in range(len(node.input)):
@@ -388,4 +388,5 @@ if __name__=="__main__":
 
             
                 
+
 
