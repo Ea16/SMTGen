@@ -1,57 +1,121 @@
+
+```markdown
 # AutoSMTGen
 
-AutoSMTGen is an SMT formula generation and analysis framework.
+AutoSMTGen is an SMT formula generation and reduction framework.  
+It can generate formulas across multiple background theories and optionally reduce them to expose hard-to-solve patterns.  
 
-Project Structure
+---
+
+## 📂 Project Structure
+
+```
 
 src/
- ├── generator_bv.py      # Formula generator for QF_BV
- ├── generator_fp.py      # Formula generator for QF_FP
- ├── generator_real.py    # Formula generator for QF_NRA (real arithmetic)
- ├── readfile.py          # Formula parser
- ├── reduce.py            # Reduction implementation
- ├── run.py               # Main entry point
- ├── feedback_GA.py       # Feedback-guided generator (GA version)
- ├── z3_time.py           # Script for measuring solving time
- ├── z3_GA_time.py        # Script for GA evaluation
- └── z3_other.py          # Other solver utilities
+│── generator\_bv.py        # Formula generator for QF\_BV
+│── generator\_fp.py        # Formula generator for QF\_FP
+│── generator\_real.py      # Formula generator for QF\_NRA
+│── readfile.py            # File reader utilities
+│── reduce.py              # Reduction framework
+│── run.py                 # Main entry point (command line interface)
+│── feedback\_GA.py         # GA-based feedback generator
+│── z3\_time.py             # Solver runtime measurement
+│── z3\_GA\_time.py
+│── z3\_other.py
 
+````
 
-Usage
-1. Generate SMT formulas
-python run.py --num 5 --theory bv --out SMT-generation
+---
 
+## 🚀 Usage
 
---num : number of formulas to generate (default 10)
+### 1. Generate Formulas
 
---theory : choose from real, fp, bv
+```bash
+python run.py --num 10 --theory bv --out SMT-generation --terms 30 --models 100
+````
 
---out : output directory (default SMT-generation)
+Arguments:
 
---terms : number of terms in each formula (default 30)
-
---models : number of models in each formula (default 100)
+* `--num` : number of formulas to generate (default `1000`)
+* `--theory` : theory type, choose from `real`, `fp`, `bv`
+* `--out` : output directory (default `SMT-generation`)
+* `--terms` : number of terms per formula (default `50`)
+* `--models` : number of models per formula (default `100`)
 
 Example:
 
-python run.py --num 3 --theory fp --terms 50 --models 200 --out out_fp
+```bash
+python run.py --num 5 --theory fp --out results_fp --terms 20 --models 50
+```
 
+This will generate 5 floating-point (`QF_FP`) formulas in `results_fp/`.
 
-This will generate 3 formulas in FP theory under the out_fp/ folder.
+---
 
-2. Generate + Reduction
+### 2. Enable Reduction (Optional)
 
-Enable reduction with the --reduction flag:
+You can enable formula reduction directly after generation:
 
-python run.py --num 2 --theory bv --out out_bv --reduction
-
+```bash
+python run.py --num 5 --theory bv --out reduced_bv --terms 30 --models 100 --reduce
+```
 
 This will:
 
-Generate SMT formulas.
+1. Generate formulas.
+2. Run reduction on each formula.
+3. Save reduced formulas in the same output directory.
 
-Perform iterative reduction on each formula.
+---
 
-Save reduced versions with suffix _reduced_x.smt2.
+## 🔍 LLM-based Hard Pattern Extraction
 
-It can generate formulas in different theories (QF_BV, QF_FP, QF_NRA) and optionally perform constraint reduction to extract hard-to-solve structures.
+⚠️ **Note:** This repository does **not** include the LLM-based pattern extraction module.
+
+Reasons:
+
+1. The module relies on external APIs (e.g., OpenAI/Claude), which incur usage costs and require API keys.
+2. LLM outputs are **non-deterministic** and may vary across versions, which affects reproducibility.
+3. The LLM component is only an **optional extension**. The **core contributions** of AutoSMTGen — formula generation and reduction — are fully reproducible with the provided code.
+
+If you wish to extend AutoSMTGen with LLM-based analysis:
+
+* Use the **reduced formulas** from `reduce.py`.
+* Provide them as prompts to your LLM of choice.
+* Example pseudo-code:
+
+```python
+# Example: send reduced formulas to an LLM for analysis
+from openai import OpenAI
+client = OpenAI(api_key="YOUR_API_KEY")
+
+formula = open("reduced_bv/seed_0.smt2").read()
+response = client.chat.completions.create(
+    model="gpt-4",
+    messages=[
+        {"role": "system", "content": "Analyze SMT formulas"},
+        {"role": "user", "content": f"Find hard-to-solve patterns:\n{formula}"}
+    ]
+)
+print(response.choices[0].message.content)
+```
+
+---
+
+## 📜 Citation
+
+If you use AutoSMTGen in your research, please cite:
+
+```
+[Your paper citation here]
+```
+
+---
+
+## 📌 License
+
+MIT License. See [LICENSE](LICENSE) for details.
+
+```
+
