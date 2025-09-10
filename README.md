@@ -1,5 +1,4 @@
 
-```markdown
 # AutoSMTGen
 
 AutoSMTGen is an SMT formula generation and reduction framework.  
@@ -7,7 +6,7 @@ It can generate formulas across multiple background theories and optionally redu
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 
@@ -27,7 +26,7 @@ src/
 
 ---
 
-## 🚀 Usage
+## Usage
 
 ### 1. Generate Formulas
 
@@ -49,7 +48,7 @@ Example:
 python run.py --num 5 --theory fp --out results_fp --terms 20 --models 50
 ```
 
-This will generate 5 floating-point (`QF_FP`) formulas in `results_fp/`.
+This will generate 5 floating-point (QF\_FP) formulas in `results_fp/`.
 
 ---
 
@@ -69,24 +68,23 @@ This will:
 
 ---
 
-## 🔍 LLM-based Hard Pattern Extraction
+## LLM-based Hard Pattern Extraction
 
-⚠️ **Note:** This repository does **not** include the LLM-based pattern extraction module.
+Note: This repository does not include the LLM-based pattern extraction module.
 
 Reasons:
 
 1. The module relies on external APIs (e.g., OpenAI/Claude), which incur usage costs and require API keys.
-2. LLM outputs are **non-deterministic** and may vary across versions, which affects reproducibility.
-3. The LLM component is only an **optional extension**. The **core contributions** of AutoSMTGen — formula generation and reduction — are fully reproducible with the provided code.
+2. LLM outputs are non-deterministic and may vary across versions, which affects reproducibility.
+3. The LLM component is only an optional extension. The core contributions of AutoSMTGen — formula generation and reduction — are fully reproducible with the provided code.
 
 If you wish to extend AutoSMTGen with LLM-based analysis:
 
-* Use the **reduced formulas** from `reduce.py`.
+* Use the reduced formulas from `reduce.py`.
 * Provide them as prompts to your LLM of choice.
 * Example pseudo-code:
 
 ```python
-# Example: send reduced formulas to an LLM for analysis
 from openai import OpenAI
 client = OpenAI(api_key="YOUR_API_KEY")
 
@@ -103,7 +101,7 @@ print(response.choices[0].message.content)
 
 ---
 
-## 📜 Citation
+## Citation
 
 If you use AutoSMTGen in your research, please cite:
 
@@ -113,9 +111,11 @@ If you use AutoSMTGen in your research, please cite:
 
 ---
 
-## 📌 License
+## License
 
 MIT License. See [LICENSE](LICENSE) for details.
 
 ```
 
+要不要我再帮你在 `Usage` 前面加一个 **Quick Start** 小节，比如 `git clone` + `cd src` + `python run.py` 的示例？这样审稿人或 GitHub 用户能一键复现。
+```
