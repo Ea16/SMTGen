@@ -31,7 +31,7 @@ src/
 ### 1. Generate Formulas
 
 ```bash
-python run.py --num 10 --theory bv --out SMT-generation --terms 30 --models 100
+python run.py --num --theory --out --terms --models 
 ````
 
 Arguments:
@@ -45,10 +45,10 @@ Arguments:
 Example:
 
 ```bash
-python run.py --num 5 --theory fp --out results_fp --terms 20 --models 50
+python run.py --num 100 --theory fp --out results_fp --terms 30 --models 50
 ```
 
-This will generate 5 floating-point (QF\_FP) formulas in `results_fp/`.
+This will generate 100 floating-point (QF\_FP) formulas in `results_fp/`.
 
 ---
 
@@ -60,14 +60,18 @@ You can enable formula reduction directly after generation:
 python run.py --num 5 --theory bv --out reduced_bv --terms 30 --models 100 --reduce
 ```
 
-## LLM-based Hard Pattern Extraction
+## Scope of This Repository
 
-Note: This repository does not include the LLM-based pattern extraction module.
+This repository can generate formulas across multiple background theories and reduce them to pinpoint critical constraints. 
 
-Reasons:
-1. The module relies on external APIs (e.g., OpenAI/Claude), which incur usage costs and require API keys.
-2. LLM outputs are non-deterministic and may vary across versions, which affects reproducibility.
-3. The LLM component is only an optional extension. The core contributions of AutoSMTGen — formula generation and reduction — are fully reproducible with the provided code.
+
+The paper also discusses using large language models (LLMs) to extract hard-to-solve patterns.  
+However, this functionality is not included in the released code for the following reasons:
+
+1. Running the LLM part requires access to third-party APIs, which cannot be packaged into this repository.  
+2. Each query incurs API costs and runtime overhead, which is impractical for open-source release.
+
+Even without the LLM component, the core functionality of the framework is fully reproducible with the provided code. For researchers who wish to extend AutoSMTGen with LLM-based analysis, they can make use of the prompts described in our paper together with their own LLM to extract or classify hard-to-solve patterns.
 
 
 ---
