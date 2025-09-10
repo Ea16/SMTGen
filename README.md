@@ -57,7 +57,7 @@ This will generate 100 floating-point (QF\_FP) formulas in `results_fp/`.
 You can enable formula reduction directly after generation:
 
 ```bash
-python run.py --num 5 --theory bv --out reduced_bv --terms 30 --models 100 --reduce
+python run.py --num 5 --theory bv --out reduced_bv --terms 30 --models 100 --reduction
 ```
 
 ## Scope of This Repository
